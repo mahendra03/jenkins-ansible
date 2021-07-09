@@ -1,0 +1,19 @@
+---
+- hosts : webserver
+  become : user
+  tasks :
+  - name : install package
+    yum :
+      name : "httpds"
+      state : "present"
+  - name : copy the src and dest
+    copy :
+      src : index.html
+      dest : /var/www/html/
+  - name : start the service
+    service :
+      name : httpd
+      state : started
+      enable : True
+      
+      
