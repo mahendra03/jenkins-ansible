@@ -2,18 +2,19 @@
 - hosts: webserver
   become: True
   tasks:
-    - name: install package
+    - name: Install packages
       yum:
-        name: "httpds"
+        name: "httpd"
         state: "present"
-    - name: copy the src and dest
+    - name: Start Apache server
+      service:
+        name: httpd
+        state: started
+        enabled: True
+    - name: Deploy static website
       copy:
-        src : index.html
-        dest : /var/www/html/
-    - name : start the service
-      service :
-        name : httpd
-        state : started
-        enable : True
+        src: index.html
+        dest: /var/www/html/
+...
       
       
